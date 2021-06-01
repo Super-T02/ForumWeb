@@ -1,6 +1,8 @@
-<!Doctype html>
-<html>
-    <body>
+<?php
+    $title = "Home";
+    require_once "include/head.php";
+?>
+<!--Start content-->
         <h1>Hello World.</h1>
-    </body>
-</html>
+<!--End content-->
+<?php require_once "include/foot.php" ?>
