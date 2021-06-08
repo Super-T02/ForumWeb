@@ -15,6 +15,11 @@ class dbConnection
         $this->db = "forum";
     }
 
+    /**
+     * creates a connection to the database forum
+     *
+     * @return bool
+     */
     public function connect()
     {
         // Create connection
@@ -24,13 +29,14 @@ class dbConnection
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
-        echo 'open';
         return true;
     }
 
+    /**
+     * close connection to the Database
+     */
     public function closeConnection()
     {
-        echo 'closed';
         $this->conn->close();
     }
 }
