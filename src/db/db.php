@@ -1,20 +1,37 @@
 <?php
-/**
- * Connect to the Database
- */
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "forum";
+class dbConnection
+{
+    private $servername;
+    private $username;
+    private $password;
+    private $db;
+    private $conn;
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $db);
+    public function __construct()
+    {
+        $this->servername = "localhost";
+        $this->username = "root";
+        $this->password = "";
+        $this->db = "forum";
+    }
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    public function connect()
+    {
+        // Create connection
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->db);
+
+        // Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+        echo 'open';
+        return true;
+    }
+
+    public function closeConnection()
+    {
+        echo 'closed';
+        $this->conn->close();
+    }
 }
-// please write
-// $conn->close();
-// to the end of all files, which includes this file
 ?>
