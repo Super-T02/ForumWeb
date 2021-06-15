@@ -1,0 +1,86 @@
+.body-wrapper{
+    width: var(--htmlwidth);
+    margin-left: calc((100% - var(--htmlwidth))/2);
+    display: grid;
+    grid-template-rows: 75px var(--navheight) auto 40px;
+    grid-template-areas:
+            'header header header header header'
+            'nav nav nav nav nav'
+            'cont cont cont cont cont'
+            'foot foot foot foot foot';
+}
+
+.header{
+    grid-area: header;
+    background-color: var(--mainColor);
+    /*color: white;*/
+}
+
+.logo{
+    height: 75px;
+}
+
+.title, .logo{
+    position: relative;
+    float: left;
+}
+
+.title{
+    font-family: "Comic Sans MS", sans-serif;
+    margin: 5px 0 0 15px;
+    font-size: 3em;
+}
+
+.nav{
+    background-color: var(--secondColor);
+    grid-area: nav;
+}
+
+.content{
+    grid-area: cont;
+}
+
+.footer{
+    height: calc(100% - 30px);
+    padding: 15px;
+    grid-area: foot;
+    font-size: 0.8em;
+    border-radius: var(--borderRadius);
+    /*background-color: var(--mainColor);*/
+    background-color: #1c1c1c;
+
+}
+
+
+.link, .link-right{
+    padding: 10px 0 0 0;
+    display: block;
+
+    font-size: 1.2em;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+
+    position: relative;
+    float: left;
+
+    height: calc(100% - 10px);
+    width: 150px;
+
+}
+
+.link-right{
+    float: right;
+}
+
+.link-right:not(.active):hover, .link:not(.active):hover, .active{
+    color: var(--aczentColor);
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    /*left: calc((100% - var(--htmlwidth))/2);*/
+    height: var(--navheight);
+    width: var(--htmlwidth);
+}

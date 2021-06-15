@@ -6,6 +6,7 @@ class DB_Connection
     private $password;
     private $db;
     private $conn;
+    private $result;
 
     public function __construct()
     {
@@ -31,6 +32,35 @@ class DB_Connection
         }
         return true;
     }
+
+    /**
+     * @throws Exception
+     */
+    public function doQuery($query)
+    {
+        if(!is_string($query))
+        {
+            die("Error: Query failed -> no String");
+        }
+
+        $this->result = $this->conn->query($query);
+        if($this->result === false)
+        {
+            $this->result = "";
+            throw new Exception("Query returned false");
+        }
+        return $this->result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+
 
     /**
      * close connection to the Database

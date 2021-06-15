@@ -1,0 +1,17 @@
+:root{
+    --fontColor: white;
+    --htmlwidth: 1100px;
+    --mainColor: #1c1c1c; /*#d14140*/
+    --secondColor: #323232; /*6d2120*/
+    --aczentColor: #d14140; /*bf6261*/
+    --htmlBackground: #ECEFF1; /*ECEFF1*/
+    --navheight: 44px;
+
+/*Table settings*/
+    --spaceing: 10px;
+    --cellheight: 70px;
+    --borderRadius: 15px;
+    --borderColor: #e0e0e0;
+    --fontColorTable: #76818d;
+
+}
