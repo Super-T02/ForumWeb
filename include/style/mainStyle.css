@@ -2,6 +2,9 @@
 @import "ini.css";
 @import "gridstyle.css";
 @import "overviewTable.css";
+@import "article.css";
+@import "modal.css";
+@import "form.css";
 
 html,body {
     margin: 0;

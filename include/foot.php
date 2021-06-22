@@ -17,5 +17,19 @@
     };
 </script>
 
+<!--Skript changing the iconcolor-->
+<script type="text/javascript">
+    function changeIconColor(path, id, myId) {
+        let img = document.getElementById(id);
+        let me = document.getElementById(myId);
+        if(!me.classList.contains("active")) img.src = path;
+    }
+</script>
+
+
+<script type="text/javascript" src="include/scripts/content-link.js"></script>
+<script type="text/javascript" src="include/scripts/modal.js"></script>
+<script type="text/javascript" src="include/scripts/validateForm.js"></script>
+
 </body>
 </html>

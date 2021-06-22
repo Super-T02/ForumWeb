@@ -1,5 +1,6 @@
 <?php
     $title = "Home";
+    $active = "home";
     require_once "include/head.php";
 ?>
 <!--Start content-->

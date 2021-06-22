@@ -1,0 +1,28 @@
+.article{
+    color: black;
+    height: auto;
+
+}
+
+.article-entry{
+    margin: 15px 0;
+    border-radius: var(--borderRadius);
+    background-color: white;
+    position: relative;
+    padding: 5px 10%;
+    width: auto;
+}
+
+.headline{
+    font-size: 2.4em;
+}
+
+.information {
+    font-size: 0.8em;
+    color: var(--fontColorTable);
+}
+
+.article-content{
+    padding-top: 15px;
+}
+

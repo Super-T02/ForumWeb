@@ -1,0 +1,26 @@
+input[type=text]{
+    height: 33px;
+    background-color: var(--inputColor);
+    color: var(--seconFontColor);
+    border-style: solid;
+}
+
+.theme-input textarea{
+    height: 100px;
+    resize: none;
+    border-style: solid;
+    background-color: var(--inputColor);
+}
+
+input[type=submit]{
+    height: 33px;
+    background-color: var(--inputColor);
+    color: var(--seconFontColor);
+    border-style: solid;
+    cursor: pointer;
+}
+
+input[type=submit]:hover,
+input[type=submit]:focus {
+    background-color: lightgreen;
+}

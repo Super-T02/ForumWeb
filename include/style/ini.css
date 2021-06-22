@@ -1,5 +1,6 @@
 :root{
     --fontColor: white;
+    --seconFontColor: black;
     --htmlwidth: 1100px;
     --mainColor: #1c1c1c; /*#d14140*/
     --secondColor: #323232; /*6d2120*/
@@ -13,5 +14,9 @@
     --borderRadius: 15px;
     --borderColor: #e0e0e0;
     --fontColorTable: #76818d;
+
+/*input settings*/
+
+    --inputColor: #e0e0e0;
 
 }

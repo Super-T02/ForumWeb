@@ -44,6 +44,7 @@ class DB_Connection
         }
 
         $this->result = $this->conn->query($query);
+
         if($this->result === false)
         {
             $this->result = "";
