@@ -10,13 +10,27 @@ $description = $_POST['description'];
 $userID = 1; // TODO: User dynaimsch!
 $date = date("d.m.Y", time());
 
-// Send Data to DB
-try {
-    $connection->doQuery("INSERT INTO themes (headline, description, userID, views, answers, lastChange) VALUES ('".$headline."', '".$description."', " . $userID . ", 0, 0, '" . $date . "')");
-} catch (Exception $e) {
-    echo $e;
+
+
+if(is_string($headline) and is_string($description) and is_int($userID) and is_string($date))
+{
+    //security for unescaped strings
+    $connection->getConn()->real_escape_string($headline);
+    $connection->getConn()->real_escape_string($description);
+
+    // Send Data to DB
+    try {
+        $res = $connection->doQuery("INSERT INTO themes (headline, description, userID, views, answers, lastChange) VALUES ('" . $headline . "', '" . $description . "', " . $userID . ", 0, 0, '" . $date . "')");
+        echo json_encode($res);
+    } catch (Exception $e) {
+        echo $e->getTrace();
+    }
+
+}
+else
+{
+    echo "Falscher Datentyp eingegeben";
 }
 
-echo json_encode($connection->getResult());
-
 $connection->closeConnection();
+

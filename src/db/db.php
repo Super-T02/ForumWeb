@@ -19,7 +19,7 @@ class DB_Connection
     /**
      * creates a connection to the database forum
      *
-     * @return bool
+     * @return mysqli
      */
     public function connect()
     {
@@ -30,11 +30,12 @@ class DB_Connection
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
-        return true;
+        return $this->conn;
     }
 
     /**
      * @throws Exception
+     * @return my
      */
     public function doQuery($query)
     {
@@ -50,8 +51,19 @@ class DB_Connection
             $this->result = "";
             throw new Exception("Query returned false");
         }
+
         return $this->result;
     }
+
+    /**
+     * @return mysqli
+     */
+    public function getConn()
+    {
+        return $this->conn;
+    }
+
+
 
     /**
      * @return string

@@ -26,3 +26,17 @@
     padding-top: 15px;
 }
 
+.answer{
+    position: relative;
+    height: 33px;
+    background-color: var(--inputColor);
+    color: var(--seconFontColor);
+    border-style: solid;
+    cursor: pointer;
+}
+
+.answer:hover{
+    cursor: pointer;
+    background-color: lightgreen;
+}
+
