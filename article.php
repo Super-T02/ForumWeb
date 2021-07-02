@@ -1,7 +1,9 @@
 <?php
 $title = "Thema";
-$active = "";
+$active = "n";
 require_once "include/head.php";
+
+
 ?>
 <!--Start content-->
 <div class="article">

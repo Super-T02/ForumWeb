@@ -35,7 +35,7 @@ class DB_Connection
 
     /**
      * @throws Exception
-     * @return my
+     * @return mysqli
      */
     public function doQuery($query)
     {

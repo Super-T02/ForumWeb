@@ -1,3 +1,4 @@
+<?php include_once "include/sessionHeader.php" ?>
 <!Doctype html>
 <html lang="de">
 <head>
@@ -19,7 +20,11 @@
            href="index.php"
            onmouseenter="changeIconColor('img/home-active.png', 'home', 'home-link')"
            onmouseleave="changeIconColor('img/home.png', 'home', 'home-link')">
-                <img id="home" src="img/home<?php if($active == "home") echo '-active'?>.png" alt="Home">
+                <?php
+                    if($active == "home") echo'<img id="home" src="img/home-active.png" alt="Home">';
+                    else echo'<img id="home" src="img/home.png" alt="Home">';
+                ?>
+
         </a>
 
         <a class="link" href=""> Test </a>

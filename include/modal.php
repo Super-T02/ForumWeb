@@ -6,7 +6,7 @@
         </div>
 
         <div class="modal-body">
-            <form id="theme" action="#" onsubmit="sendDataTheme(this);" method="post">
+            <form id="theme" action="include/newTheme.php" method="post">
                 <div class="input-name">Themen Name:</div>
                 <div class="theme-input"><input type="text" name="headline" id="theme-headline" placeholder="Themen Name" required></div>
                 <div class="placeholder"></div>

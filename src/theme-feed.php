@@ -89,10 +89,3 @@ if ($result->num_rows > 0) {
 
 
 $connection->closeConnection();
-
-
-//
-//<div id="answer-0" class="article-entry">
-//                    <div class="information">Anwort von Tom - 19.06.2021</div>
-//                    <div class="article-content">Heute ist das Tolle Fußballspiel</div>
-//                </div>
