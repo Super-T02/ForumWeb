@@ -34,8 +34,9 @@ class DB_Connection
     }
 
     /**
+     * @param $query
+     * @return mixed
      * @throws Exception
-     * @return mysqli
      */
     public function doQuery($query)
     {
@@ -48,7 +49,6 @@ class DB_Connection
 
         if($this->result === false)
         {
-            $this->result = "";
             throw new Exception("Query returned false");
         }
 
@@ -58,7 +58,7 @@ class DB_Connection
     /**
      * @return mysqli
      */
-    public function getConn()
+    public function getConn(): mysqli
     {
         return $this->conn;
     }
@@ -68,7 +68,7 @@ class DB_Connection
     /**
      * @return string
      */
-    public function getResult()
+    public function getResult(): string
     {
         return $this->result;
     }
