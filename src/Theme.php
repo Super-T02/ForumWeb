@@ -1,5 +1,7 @@
 <?php
 require_once "db/db.php";
+require_once "Answer.php";
+require_once "User.php";
 
 
 class Theme {
@@ -12,6 +14,50 @@ class Theme {
     private $answers;
     private $listOFAnswers;
 
+    //Constructor
+    /**
+     * Theme constructor. If the ID is -1 or the default value, it will be added to the database.
+     * @param string $headline
+     * @param string $description
+     * @param int $userID default 2 for gast user
+     * @param int $id
+     * @param int $views
+     * @param int $answers
+     * @param string $date
+     * @throws Exception
+     */
+    public function __construct(string $headline, string $description, int $userID = 2, int $id = -1, int $views = 0, int $answers = 0, string $date = "")
+    {
+        if (Theme::checkDB($headline, $description)) throw new Exception("Dieses Thema wurde bereits erstellt!");
+
+        $this->headline = $headline;
+        $this->description = $description;
+        $this->userID = $userID;
+
+        if ($date == "") $this->date = date("d.m.Y", time());
+        else $this->date = $date;
+
+        $this->answers = $answers;
+        $this->views = $views;
+
+        $this->listOFAnswers = array();
+
+        if($id == -1) {
+            try {
+                //send this theme to db
+                $this->sendToDB();
+            }
+            catch (Exception $exception){
+                $this->id = -1;
+                throw new Exception($exception->getMessage());
+            }
+        } else {
+            $this->id = $id;
+            $this->loadAllAnswers();
+            $this->answers = count($this->listOFAnswers);
+        }
+    }
+
     //static functions
     /**
      * @param int $id
@@ -21,7 +67,7 @@ class Theme {
      * Loads a single theme with the ID passed in and returns this theme.
      * It throws a exception if there is no theme with this ID.
      */
-    public static function load(int $id): Theme
+    public static function loadByID(int $id): Theme
     {
         $connection = new DB_Connection();
         $connection->connect();
@@ -30,7 +76,8 @@ class Theme {
         try {
             $res = $connection->doQuery("SELECT * FROM themes WHERE ID = ". $id); // Gets the last ID
             $row = $res->fetch_assoc();
-            return new Theme($row['headline'], $row['description'], $row['userID'], $row['ID'], $row['views'], $row['answers'], $row['lastChange']);
+            return new Theme($row['headline'], $row['description'], intval($row['userID']), intval($row['ID']),
+                intval($row['views']), intval($row['answers']), $row['lastChange']);
         } catch (Exception $e) {
             $connection->closeConnection();
 
@@ -90,8 +137,7 @@ class Theme {
         $connection->connect();
         $res = $connection->doQuery("SELECT * FROM themes");
 
-        foreach ($res->fetch_assoc() as $row)
-        {
+        while ($row = $res->fetch_assoc()){
             array_push($listOfAllThemes, new Theme($row['headline'], $row['description'], $row['userID'], $row['ID'], $row['views'], $row['answers'], $row['lastChange']));
         }
 
@@ -101,48 +147,7 @@ class Theme {
     }
 
 
-    //Constructor
-    /**
-     * Theme constructor.
-     * @param string $headline
-     * @param string $description
-     * @param int $userID default 2 for gast user
-     * @param int $id
-     * @param int $views
-     * @param int $answers
-     * @param string $date
-     * @throws Exception
-     */
-    public function __construct(string $headline, string $description, int $userID = 2, int $id = -1, int $views = 0, int $answers = 0, string $date = "")
-    {
-        if (Theme::checkDB($headline, $description)) throw new Exception("Dieses Thema wurde bereits erstellt!");
 
-        $this->headline = $headline;
-        $this->description = $description;
-        $this->userID = $userID;
-
-        if ($date == "") $this->date = date("d.m.Y", time());
-        else $this->date = $date;
-
-        $this->answers = $answers;
-        $this->views = $views;
-
-        $this->listOFAnswers = array();
-
-        if($id == -1) {
-            try {
-                //send this theme to db
-                $this->sendToDB();
-            }
-            catch (Exception $exception){
-                $this->id = -1;
-                throw new Exception($exception->getMessage());
-            }
-        } else {
-            $this->loadAllAnswers();
-            $this->answers = count($this->listOFAnswers);
-        }
-    }
 
     // Getters
     /**
@@ -186,17 +191,17 @@ class Theme {
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getViews()
+    public function getViews(): int
     {
         return $this->views;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getAnswers()
+    public function getAnswers(): int
     {
         return $this->answers;
     }
@@ -212,10 +217,12 @@ class Theme {
 
 
     //Own written functions
-
+    /**
+     * @throws Exception
+     */
     private function loadAllAnswers()
     {
-        if($this->id != -1)
+        if($this->id > -1)
         {
             $connection = new DB_Connection();
             $connection->connect();
@@ -223,10 +230,12 @@ class Theme {
 
             // Get Data to DB
             try {
-                $res = $connection->doQuery("SELECT articles.text, articles.userID, articles.date FROM articles WHERE articles.themeID = ". $this->id);
-                foreach ($res->fetch_assoc() as $row)
+                $res = $connection->doQuery("SELECT * FROM articles WHERE themeID = ". $this->id);
+                while ($row = $res->fetch_assoc())
                 {
-                    $answer = new Answer($row['themeID'], $row['userID'], $row['text']);
+                    $answer = new Answer(intval($row['themeID']), intval($row['userID']), $row['text'], intval($row['ID']),
+                                            $row['date']);
+
                     array_push($this->listOFAnswers, $answer);
                 }
             } catch (Exception $e) {
@@ -284,8 +293,68 @@ class Theme {
         $this->answers ++;
     }
 
+    /**
+     * Returns the Theme as a String for using in overview Tables.
+     *
+     * @return string
+     */
+    public function toStringForTable(): string
+    {
+        return '<tr class="entry-theme" onclick="linkToArticle('.$this->id.')>
+                        <td class="cell1">'.$this->headline.'</td>
+                        <td class="cell2">
+                            <table class="stats">
+                                <tr>
+                                    <td>Antworten:</td>
+                                    <td>'.$this->answers.'</td>
+                                </tr>
+                                <tr>
+                                    <td>Aufrufe:</td>
+                                    <td>'.$this->views.'</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="cell3">'.$this->date.'</td>
+                    </tr>';
+    }
 
+    public function __toString()
+    {
+        if ($this->id < 0) return '<div id="question" class="article-entry">
+                                        Dieser Artikel ist nicht vorhanden!
+                                   </div>';
 
+        //Print the Theme selves
+        $text = '<div id="question" class="article-entry theme">
+                        <div class="headline">' . $this->headline . '</div>
+                        <hr>
+                        <div class="information">';
+        try {
+            $text .= User::getUserByID($this->userID)->getName();
+        } catch (Exception $e) {
+            $text .= "UNBEKANNT";
+        }
+
+        $text .=' - ' . $this->date . '</div>
+                        <div class="article-content">' . $this->description . '</div>
+                        <hr>
+                        <button id="theme-' . $this->id . '" class="answer" onclick="document.getElementById(\'answer\').style.display = \'block\';">Antworten...</button>
+                    </div>
+                    ';
+
+        if ($this->answers > 0) {
+            //Print the Answers
+            foreach ($this->listOFAnswers as $answer) {
+                $text .= $answer;
+            }
+        }
+        //std answer
+        else $text .= ' <div id="answer-0" class="article-entry">
+                           Bisher sind noch keine Antworten vorhanden!
+                        </div>';
+
+        return $text;
+    }
 
 
 }

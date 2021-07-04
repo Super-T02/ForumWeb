@@ -1,5 +1,7 @@
 <?php
-
+require_once "db/db.php";
+require_once "Theme.php";
+require_once "Theme.php";
 
 class answer
 {
@@ -11,16 +13,22 @@ class answer
 
     /**
      * answer constructor.
-     * @param $themeID
-     * @param $userID
-     * @param $text
+     * @param int $themeID
+     * @param int $userID
+     * @param string $text
+     * @param int $id
+     * @param string $date
      */
-    public function __construct($themeID, $userID, $text)
+    public function __construct(int $themeID, int $userID, string $text, int $id = -1, string $date = "")
     {
         $this->themeID = $themeID;
         $this->userID = $userID;
         $this->text = $text;
-        $this->date = date("d.m.Y", time());
+        $this->id = $id;
+
+        if ($date == "") $this->date = date("d.m.Y", time());
+        else $this->date = $date;
+
     }
 
     /**
@@ -28,41 +36,45 @@ class answer
      */
     public function sendToDB()
     {
-        date_default_timezone_set("Europe/Berlin");
-        $connection = new DB_Connection();
-        $connection->connect();
+        if ($this->id == -1)
+        {
+            date_default_timezone_set("Europe/Berlin");
+            $connection = new DB_Connection();
+            $connection->connect();
 
-        //security for unescaped strings
-        $connection->getConn()->real_escape_string($this->text);
+            //security for unescaped strings
+            $connection->getConn()->real_escape_string($this->text);
 
-        // Send Data to DB
-        try {
-            $connection->doQuery("INSERT INTO articles (text, userID, themeID, date) VALUES ('" . $this->text . "', " . $this->userID . ", " . $this->themeID . ", '" . $this->date . "')");
+            // Send Data to DB
+            try {
+                $connection->doQuery("INSERT INTO articles (text, userID, themeID, date) VALUES ('" . $this->text . "', " . $this->userID . ", " . $this->themeID . ", '" . $this->date . "')");
 //                $_SESSION['successMessage'] = "Eine neue Antwort zum Thema " . $this->headline . " wurde erstellt"; TODO: auslagern
-            $res = $connection->doQuery("SELECT ID FROM themes WHERE 1 ORDER BY ID DESC"); // Gets the last ID
-            $this->id = $res->fetch_assoc()['ID'];
-        } catch (Exception $e) {
-            $connection->closeConnection();
+                $res = $connection->doQuery("SELECT ID FROM themes WHERE 1 ORDER BY ID DESC"); // Gets the last ID
+                $this->id = $res->fetch_assoc()['ID'];
+            } catch (Exception $e) {
+                $connection->closeConnection();
 
-            throw new Exception("The Query gets the error: " . $e->getMessage());//error description
+                throw new Exception("The Query gets the error: " . $e->getMessage());//error description
 
-        } finally {
-            $connection->closeConnection();
+            } finally {
+                $connection->closeConnection();
+            }
         }
+
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getThemeID()
+    public function getThemeID(): int
     {
         return $this->themeID;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getUserID()
+    public function getUserID(): int
     {
         return $this->userID;
     }
@@ -76,19 +88,36 @@ class answer
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        $text = '   <div id="answer-0" class="article-entry">
+                        <div class="information">Anwort von ';
+        try {
+            $text .= User::getUserByID($this->userID)->getName();
+        } catch (Exception $e) {
+            $text .= "UNBEKANNT";
+        }
+
+        $text .= ' - '.$this->date.'</div>
+                        <div class="article-content">'.$this->text.'</div>
+                    </div>';
+
+        return $text;
     }
 
 

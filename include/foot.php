@@ -29,8 +29,6 @@
 
 <script type="application/javascript" src="include/scripts/content-link.js"></script>
 <script type="application/javascript" src="include/scripts/modal.js"></script>
-<script type="application/javascript" src="include/scripts/validateForm.js"></script>
-<script type="application/javascript" src="include/scripts/newAnswer.js"></script>
 
 </body>
 </html>

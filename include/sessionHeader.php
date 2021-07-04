@@ -10,7 +10,7 @@ if(! $isSessionTrue){
 checkError('err');
 checkError('err_form');
 
-//Funkction definitions
+//Function definitions
 /**
  * @param $name
  */
