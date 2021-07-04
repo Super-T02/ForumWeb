@@ -294,6 +294,22 @@ class Theme {
     }
 
     /**
+     * @throws Exception
+     */
+    public function increaseViews()
+    {
+        if ($this->id != -1) {
+            $this->views++;
+            $connection = new DB_Connection();
+            $connection->connect();
+
+            $connection->doQuery("UPDATE themes SET views = ".$this->views." WHERE ID = ". $this->id);
+
+            $connection->closeConnection();
+        }
+    }
+
+    /**
      * Returns the Theme as a String for using in overview Tables.
      *
      * @return string

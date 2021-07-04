@@ -8,6 +8,8 @@ if(isset($_GET['themeID']))
     try {
         //Get them by ID
         $theme = Theme::loadByID($ID);
+        $theme->increaseViews();
+
         echo $theme;
 
         //Print modal for new Answers
