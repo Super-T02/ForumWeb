@@ -28,7 +28,7 @@ class Theme {
      */
     public function __construct(string $headline, string $description, int $userID = 2, int $id = -1, int $views = 0, int $answers = 0, string $date = "")
     {
-        if (Theme::checkDB($headline, $description)) throw new Exception("Dieses Thema wurde bereits erstellt!");
+        if($id == -1) if (Theme::checkDB($headline, $description)) throw new Exception("Dieses Thema wurde bereits erstellt!");
 
         $this->headline = $headline;
         $this->description = $description;
@@ -300,7 +300,7 @@ class Theme {
      */
     public function toStringForTable(): string
     {
-        return '<tr class="entry-theme" onclick="linkToArticle('.$this->id.')>
+        return '<tr class="entry-theme" onclick="linkToArticle('.$this->id.')">
                         <td class="cell1">'.$this->headline.'</td>
                         <td class="cell2">
                             <table class="stats">
