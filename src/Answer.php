@@ -32,9 +32,12 @@ class answer
     }
 
     /**
+     * Sends a new answer to the database and returns it ID.
+     *
+     * @return int
      * @throws Exception
      */
-    public function sendToDB()
+    public function sendToDB():int
     {
         if ($this->id == -1)
         {
@@ -49,16 +52,21 @@ class answer
             try {
                 $connection->doQuery("INSERT INTO articles (text, userID, themeID, date) VALUES ('" . $this->text . "', " . $this->userID . ", " . $this->themeID . ", '" . $this->date . "')");
 //                $_SESSION['successMessage'] = "Eine neue Antwort zum Thema " . $this->headline . " wurde erstellt"; TODO: auslagern
-                $res = $connection->doQuery("SELECT ID FROM themes WHERE 1 ORDER BY ID DESC"); // Gets the last ID
+                $res = $connection->doQuery("SELECT ID FROM articles WHERE 1 ORDER BY ID DESC"); // Gets the last ID
                 $this->id = $res->fetch_assoc()['ID'];
+                $connection->closeConnection();
+
+                return $this->id;
             } catch (Exception $e) {
                 $connection->closeConnection();
 
-                throw new Exception("The Query gets the error: " . $e->getMessage());//error description
+                throw new Exception("Ein Fehler in der Übermittlung ist aufgetreten.");//error description
 
-            } finally {
-                $connection->closeConnection();
             }
+        }
+        else
+        {
+            throw new Exception("Diese Antwort ist bereits in der Dabenbank registriert");
         }
 
     }
@@ -105,7 +113,7 @@ class answer
 
     public function __toString()
     {
-        $text = '   <div id="answer-0" class="article-entry">
+        $text = '   <div id="answer-'.$this->id.'" class="article-entry">
                         <div class="information">Anwort von ';
         try {
             $text .= User::getUserByID($this->userID)->getName();
