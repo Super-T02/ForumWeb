@@ -16,11 +16,8 @@ $description = $_POST['description'];
 $userID = 1; // TODO: User dynaimsch!
 $date = date("d.m.Y", time());
 
-$myTheme = new Theme($headline, $description, $userID);
-
 try {
-
-    $myTheme->sendToDB();
+    $myTheme = new Theme($headline, $description, $userID);
     if($myTheme->getId() > -1) header("Location: ../article.php?themeID=" . $myTheme->getId()); // go to new theme index.php
     else header("Location: index.php"); // go back to index.php
 } catch (Exception $e) {

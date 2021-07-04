@@ -1,6 +1,7 @@
 <?php
 require_once "db/db.php";
 
+
 $connection = new DB_Connection();
 $connection->connect();
 
