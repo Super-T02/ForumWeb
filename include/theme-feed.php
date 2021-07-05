@@ -16,12 +16,12 @@ if(isset($_GET['themeID']))
         require_once "include/answerModal.php";
     } catch (Exception $e) {
         //If there is any error the user will be send to the index page
-        $_SESSION['err'] = "Dieser Artikel existiert nicht.";
-        header("Location: index.php");
+        $_SESSION['err'] = "Ein Fehler ist aufgetreten: ". $e->getMessage();
+        header("Location: index.php?err=".$_SESSION['err']);;
     }
 }
 else
 {
     $_SESSION['err'] = "Dieser Artikel existiert nicht.";
-    header("Location: index.php");
+    header("Location: index.php?err=".$_SESSION['err']);
 }

@@ -5,6 +5,7 @@
 @import "article.css";
 @import "modal.css";
 @import "form.css";
+@import "snackbar.css";
 
 html,body {
     margin: 0;

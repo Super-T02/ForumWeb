@@ -7,18 +7,16 @@ if(! $isSessionTrue){
     die(SESSIONERRORMESSAGE);
 }
 
-checkError('err');
-checkError('err_form');
+getMessage('err');
+getMessage('err_form');
+getMessage('success');
 
-//Function definitions
-/**
- * @param $name
- */
-function checkError($name)
+function getMessage($name)
 {
-    if (isset($_SESSION[$name]) and is_string($_SESSION[$name]))
+    if(isset($_GET[$name]))
     {
-        echo ($_SESSION[$name]);
-        unset($_SESSION[$name]);
+        $_SESSION[$name] = $_GET[$name];
+        unset($_GET[$name]);
     }
 }
+

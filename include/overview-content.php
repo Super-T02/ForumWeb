@@ -9,6 +9,7 @@ try {
     }
 
 } catch (Exception $e) {
+    $_SESSION['err'] = "Daten konnten nicht geladen werden oder es sind keine Einträge vorhanden!";
     echo  '<tr class="entry-theme">
                 <td class="cell1">Daten konnten nicht geladen werden oder es sind keine Einträge vorhanden!</td>
                 <td class="cell2">

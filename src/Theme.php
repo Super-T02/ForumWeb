@@ -368,7 +368,6 @@ class Theme {
         else $text .= ' <div id="answer-0" class="article-entry">
                            Bisher sind noch keine Antworten vorhanden!
                         </div>';
-
         return $text;
     }
 
