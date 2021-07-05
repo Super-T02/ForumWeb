@@ -1,4 +1,4 @@
-<?php include_once "include/sessionHeader.php" ?>
+<?php require_once "include/sessionHeader.php" ?>
 <!Doctype html>
 <html lang="de">
 <head>

@@ -10,9 +10,9 @@ try {
 
 } catch (Exception $e) {
     $_SESSION['err'] = "Daten konnten nicht geladen werden oder es sind keine Einträge vorhanden!";
-    echo  '<tr class="entry-theme">
-                <td class="cell1">Daten konnten nicht geladen werden oder es sind keine Einträge vorhanden!</td>
-                <td class="cell2">
+    echo  '<div class="entry-theme">
+                <div class="cell1">Daten konnten nicht geladen werden oder es sind keine Einträge vorhanden!</div>
+                <div class="cell2">
                     <table class="stats">
                         <tr>
                             <td></td>
@@ -23,7 +23,7 @@ try {
                             <td></td>
                         </tr>
                     </table>
-                </td>
-                <td class="cell3"></td>
-            </tr>';
+                </div>
+                <div class="cell3"></div>
+            </div>';
 }

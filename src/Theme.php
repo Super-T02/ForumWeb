@@ -316,6 +316,7 @@ class Theme {
      */
     public function toStringForTable(): string
     {
+
         return '<div class="entry-theme" onclick="linkToArticle('.$this->id.')">
                         <div class="cell1"><div class="middle">'.$this->headline.'</div></div>
                         <div class="cell2"><div class="middle">
