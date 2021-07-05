@@ -1,6 +1,4 @@
-<!Doctype html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="0;URL=../">
-</head>
-</html>
+<?php
+require_once "../../include/sessionHeader.php";
+
+header("Location: ../index.php");
