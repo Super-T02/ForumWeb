@@ -316,9 +316,9 @@ class Theme {
      */
     public function toStringForTable(): string
     {
-        return '<tr class="entry-theme" onclick="linkToArticle('.$this->id.')">
-                        <td class="cell1">'.$this->headline.'</td>
-                        <td class="cell2">
+        return '<div class="entry-theme" onclick="linkToArticle('.$this->id.')">
+                        <div class="cell1"><div class="middle">'.$this->headline.'</div></div>
+                        <div class="cell2"><div class="middle">
                             <table class="stats">
                                 <tr>
                                     <td>Antworten:</td>
@@ -329,9 +329,10 @@ class Theme {
                                     <td>'.$this->views.'</td>
                                 </tr>
                             </table>
-                        </td>
-                        <td class="cell3">'.$this->date.'</td>
-                    </tr>';
+                            </div>
+                        </div>
+                        <div class="cell3"><div class="middle">'.$this->date.'</div></div>
+                    </div>';
     }
 
     public function __toString()

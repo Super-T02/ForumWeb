@@ -17,6 +17,9 @@
     --borderRadius: 15px;
     --borderColor: #e0e0e0;
     --fontColorTable: #76818d;
+    --firstCellWidth: 700px;
+    --secondCellWidth: 300px;
+    --borderWidth: 1px;
 
 /*input settings*/
     --inputColor: #e0e0e0;

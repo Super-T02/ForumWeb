@@ -11,7 +11,7 @@
                 <div class="input-name">Antwort:</div>
                 <div class="theme-input"><textarea name="answer" id="answer-text" placeholder="Ihre Antwort..." required></textarea></div>
                 <div class="place-holder"></div>
-                <div class="theme-input"><input type="submit" name="theme-submit" id="theme-submit" value="Antwort senden"></div>
+                <div class="theme-input"><input type="submit" name="theme-submit" id="answer-submit" value="Antwort senden"></div>
             </form>
         </div>
     </div>

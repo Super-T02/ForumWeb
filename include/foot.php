@@ -31,8 +31,8 @@
     }
 </script>
 
-<script type="application/javascript" src="include/scripts/modal.js"></script>
-<script type="application/javascript" src="include/scripts/functions.js"></script>
+<script type="application/javascript" charset="UTF-8"  src="include/scripts/modal.js"></script>
+<script type="application/javascript" charset="UTF-8" src="include/scripts/functions.js"></script>
 
 <?php //Display Javascript for success or failure message
 

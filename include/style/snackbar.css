@@ -3,6 +3,8 @@
     visibility: hidden;
     position: fixed;
     left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%); /*center the snackbar*/
     bottom: var(--marginBottom);
     background-color: var(--secondColor);
     color: var(--fontColor);

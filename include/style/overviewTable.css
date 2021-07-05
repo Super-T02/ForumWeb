@@ -1,12 +1,23 @@
 .overview{
     width: 100%;
-    border-spacing: 0 var(--spaceing);
     border-radius: 15px;
 }
 
 .entry-theme{
-    height: var(--cellheight);
+
+    border-radius: 15px;
+    width: 100%;
+    height: calc(var(--cellheight) + var(--spaceing) * 2);
     background-color: white;
+    margin: var(--spaceing) 0;
+    border: var(--borderWidth) solid var(--borderColor);
+}
+
+.middle{
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);;
 }
 
 .entry-theme:hover{
@@ -14,36 +25,33 @@
     box-shadow: 5px 5px 4px 1px #a3a3a3;
 }
 
-.entry-theme > td {
-    padding: var(--spaceing);
+.entry-theme > div.cell1, div.cell2, div.cell3 {
 
-    border: 1px solid var(--borderColor);
+    position: relative;
+    float: left;
+    padding: var(--spaceing);
 }
 
 .entry-theme > .cell1{
+    height: var(--cellheight);
     width: 700px;
     color: black;
+    border-right: var(--borderWidth) solid var(--borderColor);
 }
 
 .entry-theme > .cell2{
+    height: var(--cellheight);
     color: var(--fontColorTable);
     width: 200px;
+    border-right: var(--borderWidth) solid var(--borderColor);
 }
 
 .entry-theme > .cell3{
+    height: var(--cellheight);
     color: var(--fontColorTable);
-    width: auto;
+    width: calc(100% - 4 * var(--borderWidth) - var(--firstCellWidth) - var(--secondCellWidth));
 }
 
-.entry-theme td:first-child{
-    border-top-left-radius: var(--borderRadius);
-    border-bottom-left-radius: var(--borderRadius);
-}
-
-.entry-theme td:last-child{
-    border-top-right-radius: var(--borderRadius);
-    border-bottom-right-radius: var(--borderRadius);
-}
 
 .stats{
     width: 75%;
