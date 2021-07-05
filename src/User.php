@@ -98,7 +98,7 @@ class User
 
             // Send Data to DB
             $connection->doQuery("INSERT INTO users (userName, password, typeID) VALUES ('" . $this->name . "', '" . $this->password . "', " . $this->typeID . ")");
-//                $_SESSION['successMessage'] = "Ein neuer User mit dem Namen " . $this->name . " wurde erstellt"; TODO: auslagern
+            $_SESSION['successMessage'] = "Ein neuer User mit dem Namen '" . $this->name . "' wurde erstellt";
             $res = $connection->doQuery("SELECT ID FROM users WHERE 1 ORDER BY ID DESC"); // Gets the last ID
             $this->id = $res->fetch_assoc()['ID'];
 

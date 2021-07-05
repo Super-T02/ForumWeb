@@ -51,7 +51,7 @@ class answer
             // Send Data to DB
             try {
                 $connection->doQuery("INSERT INTO articles (text, userID, themeID, date) VALUES ('" . $this->text . "', " . $this->userID . ", " . $this->themeID . ", '" . $this->date . "')");
-//                $_SESSION['successMessage'] = "Eine neue Antwort zum Thema " . $this->headline . " wurde erstellt"; TODO: auslagern
+                $_SESSION['success'] = "Eine neue Antwort zum Thema '" . Theme::loadByID($this->themeID)->getHeadline() . "' wurde erstellt";
                 $res = $connection->doQuery("SELECT ID FROM articles WHERE 1 ORDER BY ID DESC"); // Gets the last ID
                 $this->id = $res->fetch_assoc()['ID'];
                 $connection->closeConnection();

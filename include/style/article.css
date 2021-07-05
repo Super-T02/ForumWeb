@@ -37,6 +37,6 @@
 
 .answer:hover{
     cursor: pointer;
-    background-color: lightgreen;
+    background-color: var(--succesColor);
 }
 
