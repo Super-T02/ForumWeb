@@ -1,5 +1,12 @@
 <?php
-$title = "Thema";
+require_once "src/Theme.php";
+
+try {
+    $title = Theme::loadByID($_GET['themeID'])->getHeadline();
+} catch (Exception $e) {
+    $title = "";
+}
+
 $active = "n";
 require_once "include/head.php";
 

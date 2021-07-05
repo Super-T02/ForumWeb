@@ -68,6 +68,10 @@
     float: right;
 }
 
+#add-link:hover{
+    cursor: pointer;
+}
+
 .link-right:not(.active):hover, .link:not(.active):hover, .active{
     color: var(--aczentColor);
 }
