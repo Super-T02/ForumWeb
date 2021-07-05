@@ -22,5 +22,6 @@ input[type=submit]{
 
 input[type=submit]:hover,
 input[type=submit]:focus {
-    background-color: lightgreen;
+    background-color: var(--succesColor);
+    color: var(--fontColor);
 }
