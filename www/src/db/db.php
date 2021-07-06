@@ -10,10 +10,10 @@ class DB_Connection
 
     public function __construct()
     {
-        $this->servername = "localhost";
+        $this->servername = "db";
         $this->username = "root";
-        $this->password = "";
-        $this->db = "forum";
+        $this->password = "test";
+        $this->db = "mainBase";
     }
 
     /**

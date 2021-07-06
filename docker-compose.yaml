@@ -19,7 +19,7 @@ services:
     ports:
       - 3306
     environment:
-      MARIADB_DATABASE: forum
+      MARIADB_DATABASE: mainBase
       MARIADB_USER: user
       MARIADB_PASSWORD: test
       MARIADB_ROOT_PASSWORD: test
