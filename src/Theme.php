@@ -265,7 +265,7 @@ class Theme {
         // Send Data to DB
         try {
             $connection->doQuery("INSERT INTO themes (headline, description, userID, views, answers, lastChange) VALUES ('" . $this->headline . "', '" . $this->description . "', " . $this->userID . ", 0, 0, '" . $this->date . "')");
-                $_SESSION['success'] = "Ein neues Thema mit dem Namen '" . $this->headline . "' wurde erstellt.";
+            $_SESSION['success'] = "Ein neues Thema mit dem Namen '" . $this->headline . "' wurde erstellt.";
             $res = $connection->doQuery("SELECT ID FROM themes WHERE 1 ORDER BY ID DESC"); // Gets the last ID
             $this->id = $res->fetch_assoc()['ID'];
 

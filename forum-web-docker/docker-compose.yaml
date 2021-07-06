@@ -1,0 +1,41 @@
+version: "3.1"
+services:
+  www:
+    #image: php:7.4-apache
+    build: .
+    ports:
+      - 8000:80
+    volumes:
+      - ./www:/var/www/html/
+      - ./conf/php.ini:/usr/local/etc/php/php.ini
+      #- ./conf/httpd.conf:/etc/apache2/apache2.conf
+    links:
+      - db
+    networks:
+      - default
+  db:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306
+    environment:
+      MARIADB_DATABASE: forum
+      MARIADB_USER: user
+      MARIADB_PASSWORD: test
+      MARIADB_ROOT_PASSWORD: test
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      # - ./conf/my.cnf:/etc/mysql/my.cnf
+      - ./data:/var/lib/mysql
+    networks:
+      - default
+  pma:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db:sql
+    ports:
+      - 8001:80
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test

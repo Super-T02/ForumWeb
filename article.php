@@ -2,7 +2,8 @@
 require_once "src/Theme.php";
 
 try {
-    $title = Theme::loadByID($_GET['themeID'])->getHeadline();
+    if (isset($_GET['themeID'])) $title = Theme::loadByID($_GET['themeID'])->getHeadline();
+    else $title = "";
 } catch (Exception $e) {
     $title = "";
 }
