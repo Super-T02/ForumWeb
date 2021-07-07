@@ -390,6 +390,7 @@ class Theme implements DbElement {
         if ($this->pictureID != null)
         {
             try {
+                $text .= "<br>";
                 $pic = Picture::loadByID($this->pictureID);
                 $text .= $pic;
             }
