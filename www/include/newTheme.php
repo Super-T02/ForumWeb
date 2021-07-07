@@ -1,6 +1,7 @@
 <?php
 require_once "sessionHeader.php";
 require_once "../src/Theme.php";
+require_once "../src/ThemeWithPicture.php";
 require_once "../src/Picture.php";
 define("uploadDir", "../uploads/");
 
@@ -20,16 +21,17 @@ $date = date("d.m.Y", time());
 $alt = "Bild zum Thema ".$headline; // alt for picture
 
 try {
-    // Picture sent
-    if (isset($_POST['hasPicture']))
+    if (isset($_POST['hasPicture'])) // pictures uploaded
     {
-        $picture = uploadDir . basename($_FILES['picture']['name']);
-        $imageFileType = strtolower(pathinfo($picture, PATHINFO_EXTENSION));
+        // define some variables
+        $picture = uploadDir . basename($_FILES['picture']['name']); // file path in future
+        $imageFileType = strtolower(pathinfo($picture, PATHINFO_EXTENSION)); // type of the file
 
+        // Checks for duplicates, size and file format. successful -> new Picture
         $pic = Picture::checkUpLoad($imageFileType, $_FILES['picture']['name'], $_FILES['picture']['tmp_name'],
             uploadDir, $_FILES['picture']['size'], $alt);
 
-
+        // try to move the file in the directory
         if (!move_uploaded_file($_FILES['picture']['tmp_name'], uploadDir . basename($_FILES['picture']['name']))) {
             throw new Exception("Die Datei " . htmlspecialchars(basename($_FILES['picture']['name']))
                 . " konnte nicht hochgeladen werden!");
@@ -37,14 +39,17 @@ try {
 
         unset($_FILES['picture']);
 
-        $myTheme = new Theme($headline, $description, $pic->getId(), $userID);
+        // Generate new theme with picture
+        $myTheme = new ThemeWithPicture($headline, $description, $pic->getId(), $userID);
     }
-    else
+    else // no pictures uploaded
     {
-        $myTheme = new Theme($headline, $description, null, $userID); // -1 stands for no picture
+        // Generate normal theme without picture
+        $myTheme = new Theme($headline, $description, $userID);
     }
 
-    if($myTheme->getId() > -1){
+    if($myTheme->getId() > -1) // theme not sent to db
+    {
         header("Location: ../article.php?themeID=" . $myTheme->getId()); // go to new theme index.php
     }
     else{
