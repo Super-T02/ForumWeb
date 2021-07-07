@@ -2,9 +2,10 @@
 require_once "db/db.php";
 require_once "Answer.php";
 require_once "User.php";
+require_once "DbElement.php";
 
 
-class Theme {
+class Theme implements DbElement {
     private $headline;
     private $description;
     private $userID;

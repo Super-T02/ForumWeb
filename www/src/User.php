@@ -1,7 +1,8 @@
 <?php
 require_once "db/db.php";
+require_once "DbElement.php";
 
-class User
+class User implements DbElement
 {
     private $id;
     private $name;
@@ -85,7 +86,7 @@ class User
      *
      * @throws Exception
      */
-    private function sendToDB()
+    public function sendToDB()
     {
         if($this->id == 0)
         {
@@ -106,4 +107,17 @@ class User
         }
     }
 
+    /**
+     * @param int $id
+     * @return User
+     */
+    public static function loadByID(int $id): User
+    {
+        return new User();// TODO: Implement loadByID() method.
+    }
+
+    public function __toString()
+    {
+        return "";// TODO: Implement __toString() method.
+    }
 }

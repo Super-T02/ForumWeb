@@ -2,8 +2,9 @@
 require_once "db/db.php";
 require_once "Theme.php";
 require_once "User.php";
+require_once "DbElement.php";
 
-class answer
+class answer implements DbElement
 {
     private $themeID;
     private $userID;
@@ -128,5 +129,12 @@ class answer
         return $text;
     }
 
-
+    /**
+     * @param int $id
+     * @return dbElement
+     */
+    public static function loadByID(int $id): dbElement
+    {
+        return new Answer();// TODO: Implement loadByID() method.
+    }
 }

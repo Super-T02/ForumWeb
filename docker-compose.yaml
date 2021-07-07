@@ -17,7 +17,7 @@ services:
     image: mariadb
     restart: always
     ports:
-      - 3306
+      - 8002:3306
     environment:
       MARIADB_DATABASE: mainBase
       MARIADB_USER: user
