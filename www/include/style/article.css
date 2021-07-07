@@ -22,6 +22,11 @@
     color: var(--fontColorTable);
 }
 
+.content-img {
+    max-width: 100%;
+}
+
+
 .article-content{
     padding-top: 15px;
 }

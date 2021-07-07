@@ -1,5 +1,6 @@
 <?php
 require_once "src/Theme.php";
+require_once "src/Picture.php";
 
 if(isset($_GET['themeID']))
 {
@@ -17,11 +18,11 @@ if(isset($_GET['themeID']))
     } catch (Exception $e) {
         //If there is any error the user will be send to the index page
         $_SESSION['err'] = "Ein Fehler ist aufgetreten: ". $e->getMessage();
-        header("Location: index.php?err=".$_SESSION['err']);
+        header("Location: ../index.php?err=".$_SESSION['err']);
     }
 }
 else
 {
     $_SESSION['err'] = "Dieser Artikel existiert nicht.";
-    header("Location: index.php?err=".$_SESSION['err']);
+    header("Location: ../index.php?err=".$_SESSION['err']);
 }

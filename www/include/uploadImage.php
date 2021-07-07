@@ -1,37 +1,46 @@
 <?php
+require_once "sessionHeader.php";
 require_once "../src/db/db.php";
+require_once "../src/Picture.php";
 
 const uploadDir = "../uploads/";
 
-if(isset($_POST['submit'])) {
+try {
+    if(!isset($_POST['submit'])) throw new RuntimeException("Es wurden"
+        ." keine Daten gesnedet!");
+
+
     $picture = uploadDir . basename($_FILES['picture']['name']);
     $imageFileType = strtolower(pathinfo($picture, PATHINFO_EXTENSION));
 
-    // Check if image file is a actual image
-    $check = getimagesize($_FILES['picture']['tmp_name']);
-    if($check === false) {
-        throw new RuntimeException("Datei ist keine Bilddatei");
-    }
-
-    // Check already exist
-    if(file_exists($picture)) {
-        throw new RuntimeException("Datei mit diesem Namen bereits vorhanden");
-    }
-
-    // Check file size
-    if ($_FILES['picture']['size'] > 500000000) { //larger than 5 MB
-        throw new RuntimeException("Datei ist zu groß. Es sind maximal 5 MB zugelassen.");
-    }
-
-    // Check file type
-    if($imageFileType != "png" && $imageFileType != "jpg" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-        throw new RuntimeException("Es sind nur JPG, JPEG, PNG & GIF Dateien erlaubt.");
-    }
-
+    $pic = Picture::checkUpLoad($imageFileType, $_FILES['picture']['name'], $_FILES['picture']['tmp_name'], uploadDir,
+        $_FILES['picture']['size'], 1, 0, 'test');
 
     if (!move_uploaded_file($_FILES['picture']['tmp_name'], $picture)) {
-        throw new RuntimeException("Die Datei " .htmlspecialchars( basename( $_FILES['picture']['name'])). " konnte nicht hochgeladen werden!");
+        throw new Exception("Die Datei " . htmlspecialchars(basename($_FILES['picture']['name']))
+            . " konnte nicht hochgeladen werden!");
+    }
+
+    echo $pic;
+}
+//Something is wrong with the upload
+catch (RuntimeException $runtimeException){
+    $_SESSION['err'] = $runtimeException->getMessage();
+    header("Location: ../index.php");
+}
+//Something is wrong with the Query
+catch (Exception $e) {
+
+    if (isset($pic)) try {
+
+        $pic->deleteFormDB();
+
+    } catch (Exception $ex) {
+        //Do nothing
+    } finally{
+        $_SESSION['err'] = $e->getMessage();
+        header("Location: ../index.php");
     }
 
 }
+

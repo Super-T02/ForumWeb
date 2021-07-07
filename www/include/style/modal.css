@@ -67,3 +67,8 @@ form#theme{
     width: calc(100% - 5px);
 }
 
+.place-holder
+{
+    height: var(--spaceing);
+}
+

@@ -2,24 +2,28 @@
 require_once "db/db.php";
 require_once "Answer.php";
 require_once "User.php";
+require_once "Picture.php";
 require_once "DbElement.php";
 
 
 class Theme implements DbElement {
-    private $headline;
-    private $description;
-    private $userID;
-    private $date;
-    private $id;
-    private $views;
-    private $answers;
-    private $listOFAnswers;
+    private string $headline;
+    private string $description;
+    private int $userID;
+    private string $date;
+    private int $id;
+    private int $views;
+    private int $answers;
+    private $pictureID;
+    private array $listOFAnswers;
 
     //Constructor
+
     /**
      * Theme constructor. If the ID is -1 or the default value, it will be added to the database.
      * @param string $headline
      * @param string $description
+     * @param $pictureID
      * @param int $userID default 2 for gast user
      * @param int $id
      * @param int $views
@@ -27,13 +31,15 @@ class Theme implements DbElement {
      * @param string $date
      * @throws Exception
      */
-    public function __construct(string $headline, string $description, int $userID = 2, int $id = -1, int $views = 0, int $answers = 0, string $date = "")
+    public function __construct(string $headline, string $description, $pictureID = null, int $userID = 2, int $id = -1, int $views = 0, int $answers = 0, string $date = "")
     {
         if($id == -1) if (Theme::checkDB($headline, $description)) throw new Exception("Dieses Thema wurde bereits erstellt!");
 
         $this->headline = $headline;
         $this->description = $description;
         $this->userID = $userID;
+
+        $this->pictureID = $pictureID;
 
         if ($date == "") $this->date = date("d.m.Y", time());
         else $this->date = $date;
@@ -77,7 +83,10 @@ class Theme implements DbElement {
         try {
             $res = $connection->doQuery("SELECT * FROM themes WHERE ID = ". $id); // Gets the last ID
             $row = $res->fetch_assoc();
-            return new Theme($row['headline'], $row['description'], intval($row['userID']), intval($row['ID']),
+
+            if ($row == null) throw new Exception("Dieser Artikel existiert nicht!");
+
+            return new Theme($row['headline'], $row['description'], $row['pictureID'], intval($row['userID']), intval($row['ID']),
                 intval($row['views']), intval($row['answers']), $row['lastChange']);
         } catch (Exception $e) {
             $connection->closeConnection();
@@ -139,7 +148,7 @@ class Theme implements DbElement {
         $res = $connection->doQuery("SELECT * FROM themes");
 
         while ($row = $res->fetch_assoc()){
-            array_push($listOfAllThemes, new Theme($row['headline'], $row['description'], $row['userID'], $row['ID'], $row['views'], $row['answers'], $row['lastChange']));
+            array_push($listOfAllThemes, new Theme($row['headline'], $row['description'], $row['pictureID'],$row['userID'], $row['ID'], $row['views'], $row['answers'], $row['lastChange']));
         }
 
         $connection->closeConnection();
@@ -265,7 +274,15 @@ class Theme implements DbElement {
 
         // Send Data to DB
         try {
-            $connection->doQuery("INSERT INTO themes (headline, description, userID, views, answers, lastChange) VALUES ('" . $this->headline . "', '" . $this->description . "', " . $this->userID . ", 0, 0, '" . $this->date . "')");
+            if ($this->pictureID == null) $pic = 'NULL';
+            else $pic = $this->pictureID;
+
+            $query = "INSERT INTO themes (headline, description, userID, views, answers, lastChange, pictureID)".
+                "VALUES ('" . $this->headline . "', '" . $this->description . "', " . $this->userID . ", 0, 0, '" . $this->date .
+                "', ".$pic.")";
+
+
+            $connection->doQuery($query);
             $_SESSION['success'] = "Ein neues Thema mit dem Namen '" . $this->headline . "' wurde erstellt.";
             $res = $connection->doQuery("SELECT ID FROM themes WHERE 1 ORDER BY ID DESC"); // Gets the last ID
             $this->id = $res->fetch_assoc()['ID'];
@@ -337,6 +354,20 @@ class Theme implements DbElement {
                     </div>';
     }
 
+    /**
+     * @throws Exception
+     */
+    public function deleteFromDB(){
+        if ($this->id == -1) throw new Exception("Dieses Thema ist nicht in der Datenbank");
+
+        $conn = new DB_Connection();
+        $conn->connect();
+
+        $conn->doQuery("DELETE FROM themes WHERE ID = ". $this->id);
+
+        $this->id = -1;
+    }
+
     public function __toString()
     {
         if ($this->id < 0) return '<div id="question" class="article-entry">
@@ -354,7 +385,21 @@ class Theme implements DbElement {
             $text .= "UNBEKANNT";
         }
 
-        $text .=' - ' . $this->date . '</div>
+        $text.= ' - ' . $this->date .'</div>';
+
+        if ($this->pictureID != null)
+        {
+            try {
+                $pic = Picture::loadByID($this->pictureID);
+                $text .= $pic;
+            }
+            catch (Exception $e)
+            {
+                $text .= ""; // Do nothing
+            }
+        }
+
+        $text .= '
                         <div class="article-content">' . $this->description . '</div>
                         <hr>
                         <button id="theme-' . $this->id . '" class="answer" onclick="document.getElementById(\'answer\').style.display = \'block\';">Antworten...</button>

@@ -6,12 +6,15 @@
         </div>
 
         <div class="modal-body">
-            <form id="theme" action="include/newTheme.php" method="post">
+            <form id="theme" action="include/newTheme.php" method="post" enctype="multipart/form-data">
                 <div class="input-name">Themen Name:</div>
                 <div class="theme-input"><input type="text" name="headline" id="theme-headline" placeholder="Themen Name" required></div>
                 <div class="placeholder"></div>
                 <div class="input-name">Beschreibung:</div>
                 <div class="theme-input"><textarea name="description" id="theme-description" placeholder="Ihre Beschreibung..." required></textarea></div>
+                <div class="input-name">Bild (optional): <input onchange="enablePic('theme-picture')" type="checkbox" name="hasPicture" value="true"></div>
+                <div class="theme-input"><input type="file" name="picture" id="theme-picture" size="5000000" disabled></div>
+                <div class="place-holder"></div>
                 <div class="place-holder"></div>
                 <div class="theme-input"><input type="submit" name="theme-submit" id="theme-submit" value="Thema erstellen"></div>
             </form>

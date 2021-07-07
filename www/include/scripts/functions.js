@@ -12,3 +12,14 @@ function displaySnackBar() {
 function linkToArticle(themeID){
     window.location = "article.php?themeID="+themeID;
 }
+
+function enablePic(inputID)
+{
+    let picture = document.getElementById(inputID);
+    if (picture.hasAttribute('disabled')) {
+        picture.removeAttribute('disabled');
+    }
+    else {
+        picture.setAttribute('disabled', 'disabled');
+    }
+}
