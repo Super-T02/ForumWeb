@@ -260,7 +260,11 @@ class Theme implements DbElement {
                 $res = $connection->doQuery("SELECT * FROM articles WHERE themeID = ". $this->id);
                 while ($row = $res->fetch_assoc())
                 {
-                    $answer = new Answer(intval($row['themeID']), intval($row['userID']), $row['text'], $row['pictureID'],
+                    if (isset($row['pictureID'])) // if there is a picture add a answer with picture
+                        $answer = new AnswerWithPicture(intval($row['themeID']),intval($row['userID']), $row['text'],
+                            $row['pictureID'],intval($row['ID']), $row['date']);
+                    else // if not add a normal answer
+                        $answer = new Answer(intval($row['themeID']), intval($row['userID']), $row['text'],
                         intval($row['ID']), $row['date']);
 
                     array_push($this->listOFAnswers, $answer);
@@ -434,6 +438,7 @@ class Theme implements DbElement {
 }
 
 require_once "Answer.php";
+require_once "AnswerWithPicture.php";
 require_once "User.php";
 require_once "Picture.php";
 require_once "ThemeWithPicture.php";

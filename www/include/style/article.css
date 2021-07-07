@@ -24,6 +24,9 @@
 
 .content-img {
     max-width: 100%;
+    max-height: 600px;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 
