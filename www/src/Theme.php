@@ -23,7 +23,7 @@ class Theme implements DbElement {
      * Theme constructor. If the ID is -1 or the default value, it will be added to the database.
      * @param string $headline
      * @param string $description
-     * @param $pictureID
+     * @param  $pictureID
      * @param int $userID default 2 for gast user
      * @param int $id
      * @param int $views
@@ -243,8 +243,8 @@ class Theme implements DbElement {
                 $res = $connection->doQuery("SELECT * FROM articles WHERE themeID = ". $this->id);
                 while ($row = $res->fetch_assoc())
                 {
-                    $answer = new Answer(intval($row['themeID']), intval($row['userID']), $row['text'], intval($row['ID']),
-                                            $row['date']);
+                    $answer = new Answer(intval($row['themeID']), intval($row['userID']), $row['text'], $row['pictureID'],
+                        intval($row['ID']), $row['date']);
 
                     array_push($this->listOFAnswers, $answer);
                 }

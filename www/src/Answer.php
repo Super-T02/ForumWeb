@@ -6,26 +6,29 @@ require_once "DbElement.php";
 
 class answer implements DbElement
 {
-    private $themeID;
-    private $userID;
-    private $date;
-    private $text;
-    private $id;
+    private int $themeID;
+    private int $userID;
+    private string $date;
+    private string $text;
+    private int $id;
+    private $pictureID;
 
     /**
      * answer constructor.
      * @param int $themeID
      * @param int $userID
      * @param string $text
+     * @param $pictureID
      * @param int $id
      * @param string $date
      */
-    public function __construct(int $themeID, int $userID, string $text, int $id = -1, string $date = "")
+    public function __construct(int $themeID, int $userID, string $text, $pictureID = null, int $id = -1, string $date = "")
     {
         $this->themeID = $themeID;
         $this->userID = $userID;
         $this->text = $text;
         $this->id = $id;
+        $this->pictureID = $pictureID;
 
         if ($date == "") $this->date = date("d.m.Y", time());
         else $this->date = $date;
@@ -51,8 +54,15 @@ class answer implements DbElement
 
             // Send Data to DB
             try {
-                $connection->doQuery("INSERT INTO articles (text, userID, themeID, date) VALUES ('" . $this->text . "', " . $this->userID . ", " . $this->themeID . ", '" . $this->date . "')");
-                $_SESSION['success'] = "Eine neue Antwort zum Thema '" . Theme::loadByID($this->themeID)->getHeadline() . "' wurde erstellt";
+                if ($this->pictureID == null) $pic = 'NULL';
+                else $pic = $this->pictureID;
+
+                $connection->doQuery("INSERT INTO articles (text, userID, themeID, date, pictureID) VALUES ('"
+                    . $this->text . "', " . $this->userID . ", " . $this->themeID . ", '" . $this->date . "', ".$pic.")");
+
+                $_SESSION['success'] = "Eine neue Antwort zum Thema '" . Theme::loadByID($this->themeID)->getHeadline()
+                    . "' wurde erstellt";
+
                 $res = $connection->doQuery("SELECT ID FROM articles WHERE 1 ORDER BY ID DESC"); // Gets the last ID
                 $this->id = $res->fetch_assoc()['ID'];
                 $connection->closeConnection();
@@ -122,8 +132,21 @@ class answer implements DbElement
             $text .= "UNBEKANNT";
         }
 
-        $text .= ' - '.$this->date.'</div>
-                        <div class="article-content">'.$this->text.'</div>
+        $text .= ' - '.$this->date.'</div>';
+
+        if ($this->pictureID != null) {
+            try {
+                $pic = Picture::loadByID($this->pictureID);
+                $text .= $pic;
+            }
+            catch (Exception $e)
+            {
+                $text .= ""; // Do nothing
+            }
+        }
+
+
+        $text .= '<div class="article-content">'.$this->text.'</div>
                     </div>';
 
         return $text;
