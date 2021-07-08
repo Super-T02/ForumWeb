@@ -45,20 +45,9 @@ class Theme implements DbElement {
 
         $this->listOFAnswers = array();
 
-        if($id == -1) {
-            try {
-                //send this theme to db
-                $this->sendToDB();
-            }
-            catch (Exception $exception){
-                $this->id = -1;
-                throw new Exception($exception->getMessage());
-            }
-        } else {
-            $this->id = $id;
-            $this->loadAllAnswers();
-            $this->answers = count($this->listOFAnswers);
-        }
+        $this->id = $id;
+        $this->loadAllAnswers();
+        $this->answers = count($this->listOFAnswers);
     }
 
 
@@ -403,7 +392,7 @@ class Theme implements DbElement {
                         <div class="information">';
         // Username
         try {
-            $text .= User::getUserByID($this->userID)->getName();
+            $text .= User::loadByID($this->userID)->getName();
         } catch (Exception $e) {
             $text .= "UNBEKANNT";
         }

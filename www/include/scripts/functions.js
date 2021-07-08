@@ -23,3 +23,8 @@ function enablePic(inputID)
         picture.setAttribute('disabled', 'disabled');
     }
 }
+
+function checkout()
+{
+    window.location = "include/checkout.php";
+}

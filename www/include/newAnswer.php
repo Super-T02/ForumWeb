@@ -12,6 +12,10 @@ if (!(isset($_POST['answer'], $_POST['ID']))){
     else header("Location: ../article.php?themeID=". $_POST['ID']); // go back to article
 }
 
+// Get userID
+if (isset($_SESSION['userID'])) $userID = $_SESSION['userID'];
+else $userID = 1; // std user 'Gast'
+
 try {
     if (isset($_POST['hasPicture'])) // Picture uploaded
     {
@@ -32,12 +36,12 @@ try {
         unset($_FILES['picture']);
 
         // generate a answer with picture
-        $answer = new AnswerWithPicture(intval($_POST['ID']), intval(1), $_POST['answer'], $pic->getId());
+        $answer = new AnswerWithPicture(intval($_POST['ID']), $userID, $_POST['answer'], $pic->getId());
     }
     else // no picture upload
     {
         // generate a normal answer
-        $answer = new Answer(intval($_POST['ID']), intval(1), $_POST['answer']);
+        $answer = new Answer(intval($_POST['ID']), $userID, $_POST['answer']);
     }
 
     // send Answer to database

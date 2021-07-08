@@ -140,7 +140,7 @@ class Answer implements DbElement
 
         // Username
         try {
-            $text .= User::getUserByID($this->userID)->getName();
+            $text .= User::loadByID($this->userID)->getName();
         } catch (Exception $e) {
             $text .= "UNBEKANNT";
         }

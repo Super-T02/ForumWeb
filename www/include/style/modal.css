@@ -20,7 +20,7 @@
 .modal-content {
     background-color: var(--htmlBackground);
     margin: 10% auto;
-    padding: 20px;
+    padding: 5px;
     border: 1px solid #888;
     width: 50%;
 }
@@ -51,6 +51,14 @@ form#theme{
     width: 100%;
 }
 
+#register-modal .modal-content{
+    width: 25%;
+}
+
+#pass-reg, #pass2-reg{
+    margin-bottom: var(--spaceing);
+}
+
 .input-name{
     font-weight: bold;
     font-size: 1.2em;
@@ -70,5 +78,14 @@ form#theme{
 .place-holder
 {
     height: var(--spaceing);
+}
+
+.hint {
+    font-size: 0.8em;
+    margin-left: var(--spaceing);
+}
+
+.hint:not(.goodHint){
+    color: var(--warning);
 }
 

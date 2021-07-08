@@ -14,7 +14,10 @@ if (!(isset($_POST['headline'], $_POST['description']))){
 // Get data from Post request:
 $headline = $_POST['headline'];
 $description = $_POST['description'];
-$userID = 1; // TODO: User dynaimsch!
+
+if (isset($_SESSION['userID'])) $userID = $_SESSION['userID'];
+else $userID = 1; // std user 'Gast'
+
 $date = date("d.m.Y", time());
 
 //options for picture
@@ -47,6 +50,9 @@ try {
         // Generate normal theme without picture
         $myTheme = new Theme($headline, $description, $userID);
     }
+
+    // send theme to db
+    $myTheme->sendToDB();
 
     if($myTheme->getId() > -1) // theme not sent to db
     {

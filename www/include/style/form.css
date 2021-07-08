@@ -1,4 +1,4 @@
-input[type=text]{
+input[type=text], input[type=password]{
     height: 33px;
     background-color: var(--inputColor);
     color: var(--seconFontColor);
@@ -24,4 +24,5 @@ input[type=submit]:hover,
 input[type=submit]:focus {
     background-color: var(--succesColor);
     color: var(--fontColor);
+    cursor: pointer;
 }

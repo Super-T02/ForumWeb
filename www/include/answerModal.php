@@ -14,7 +14,10 @@
                 <div class="theme-input"><input type="file" name="picture" id="answer-picture" size="5000000" disabled></div>
                 <div class="place-holder"></div>
                 <div class="place-holder"></div>
-                <div class="theme-input"><input type="submit" name="theme-submit" id="answer-submit" value="Antwort senden"></div>
+                <div class="theme-input"><input type="submit" name="theme-submit" id="answer-submit" value="Antwort senden"><?php
+                    if (!isset($_SESSION['login']) or $_SESSION['login'] == false) echo "<span class='hint'>Hinweis: Du bist nicht angemeldet. Deine Antwort wird als Gast gesendet!</span>";
+                    else if (isset($_SESSION['username'])) echo "<span class='hint goodHint'>Du antwortest als ".$_SESSION['username']."</span>"
+                ?></div>
             </form>
         </div>
     </div>

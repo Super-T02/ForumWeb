@@ -59,21 +59,60 @@
     position: relative;
     float: left;
 
-    height: calc(100% - 10px);
-    width: 150px;
+    height: calc(100% - 10px);;
 
 }
 
+.link{
+    margin-left: 20px;
+}
+
 .link-right{
+    margin-right: 20px;
     float: right;
+}
+
+.login-container{
+    height: var(--navheight);
+    padding: 10px 0 0 0;
+}
+
+
+#login input{
+    width: 150px;
+    height: 100%;
+    background-color: var(--inputColor);
 }
 
 #add-link:hover{
     cursor: pointer;
 }
 
-.link-right:not(.active):hover, .link:not(.active):hover, .active{
+.link-right:not(.active, .checkout):hover, .link:not(.active):hover, .active{
     color: var(--aczentColor);
+}
+
+#checkout:hover{
+    background-color: var(--warning);
+    color: var(--fontColor);
+    border: none;
+}
+
+#login-button:hover, #signup:hover{
+    background-color: var(--succesColor);
+    color: var(--fontColor);
+    border: none;
+    cursor: pointer;
+}
+
+#checkout, #signup, #login-button{
+    background-color: var(--inputColor);
+    color: var(--seconFontColor);
+    border: none;
+}
+
+.little{
+    font-size: 0.8em;
 }
 
 .sticky{

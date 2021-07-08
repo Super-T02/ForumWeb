@@ -27,17 +27,42 @@
 
         </a>
 
-        <a class="link" href=""> Test </a>
-        <a class="link" href=""> Test </a>
-
-        <div id="add-link" class="link-right"
+        <div id="add-link" class="link"
              onmouseenter="changeIconColor('img/plus-active.png', 'add', 'add-link')"
              onmouseleave="changeIconColor('img/plus.png', 'add', 'add-link')">
                 <img id="add" src="img/plus.png" alt="Neues Thema erstellen">
         </div>
+
+        <?php
+            if(isset($_SESSION['login']) and $_SESSION['login'] == true){
+                    echo'  <div class="link-right checkout">
+                                <span class="little">Angemeldet als '.$_SESSION['username'].'</span> 
+                                <button id="checkout" onclick="checkout()">Checkout</button>
+                           </div> ';
+            }else
+            {
+                echo '  <div class="link-right login-container">
+                            <form id="login" name="login" method="post" action="include/login.php">
+                                <input type="hidden" name="type" value="login">
+                                <input name="username" id="username"  type="text" placeholder="Benutzername"  required>
+                                <input name="pass" id="pass" type="password" placeholder="Passwort" required>
+                                <button id="login-button" type="submit">Login</button>
+                            </form>
+                        </div>
+                        <div class="link-right">
+                            <button id="signup" onclick="document.getElementById(\'register-modal\').style.display = \'block\'">Registrieren</button>
+                        </div>';
+            }
+        ?>
+
+
+
     </div>
 
 <!--    Includes the popup window for adding new entrys     -->
-    <?php require "include/modal.php"; ?>
+    <?php
+    require "include/modal.php";
+    if(!isset($_SESSION['login']) or !$_SESSION['login'] == true) require_once "include/modalRegister.php";
+    ?>
 <!--    Content     -->
     <div class="content">

@@ -1,6 +1,6 @@
 <?php
 require_once "Theme.php";
-
+require_once "Picture.php";
 
 class ThemeWithPicture extends Theme
 {
@@ -84,7 +84,7 @@ class ThemeWithPicture extends Theme
                         <div class="information">';
         // Username
         try {
-            $text .= User::getUserByID($this->userID)->getName();
+            $text .= User::loadByID($this->userID)->getName();
         } catch (Exception $e) {
             $text .= "UNBEKANNT";
         }
