@@ -93,7 +93,7 @@ class AnswerWithPicture extends Answer
         $text .= $pic;
 
         // Content
-        $text .= '<div class="article-content">'.$this->text.'</div>
+        $text .= '<div class="article-content">'.nl2br($this->text).'</div>
                     </div>';
 
         return $text;

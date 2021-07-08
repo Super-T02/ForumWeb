@@ -1,7 +1,6 @@
 <?php
 require_once "db/db.php";
-require_once "Theme.php";
-require_once "User.php";
+
 require_once "DbElement.php";
 
 class Answer implements DbElement
@@ -150,10 +149,14 @@ class Answer implements DbElement
         $text .= ' - '.$this->date.'</div>';
 
         // Content
-        $text .= '<div class="article-content">'.$this->text.'</div>
+        $text .= '<div class="article-content">'. nl2br($this->text).'</div>
                     </div>';
 
         return $text;
     }
 
 }
+
+require_once "Theme.php";
+require_once "User.php";
+require_once "AnswerWithPicture.php";

@@ -413,7 +413,7 @@ class Theme implements DbElement {
 
         // text
         $text .= '
-                        <div class="article-content">' . $this->description . '</div>
+                        <div class="article-content">' . nl2br($this->description) . '</div>
                         <hr>
                         <button id="theme-' . $this->id . '" class="answer" onclick="document.getElementById(\'answer\').style.display = \'block\';">Antworten...</button>
                     </div>
