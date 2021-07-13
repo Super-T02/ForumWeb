@@ -12,7 +12,7 @@
 <div class="body-wrapper">
 <!--    Header    -->
     <div class="header">
-        <img class="logo" src="img/foodTalk.png" alt="Logo"> <!--http://d279m997dpfwgl.cloudfront.net/wp/2019/12/promo-art-foodtalk-1000x562.png-->
+        <img class="logo" src="img/foodTalk.png" alt="Logo">
         <h1 class="title">Food Talk - Postet bis zum satt werden</h1>
     </div>
     <div id="nav" class="nav">
