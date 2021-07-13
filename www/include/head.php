@@ -21,8 +21,8 @@
            onmouseenter="changeIconColor('img/home-active.png', 'home', 'home-link')"
            onmouseleave="changeIconColor('img/home.png', 'home', 'home-link')">
                 <?php
-                    if($active == "home") echo'<img id="home" src="img/home-active.png" alt="Home">';
-                    else echo'<img id="home" src="img/home.png" alt="Home">';
+                    if($active == "home") echo'<img id="home" src="img/home-active.png" title="Home" alt="Home">';
+                    else echo'<img id="home" src="img/home.png" title="Home" alt="Home">';
                 ?>
 
         </a>
@@ -30,7 +30,7 @@
         <div id="add-link" class="link"
              onmouseenter="changeIconColor('img/plus-active.png', 'add', 'add-link')"
              onmouseleave="changeIconColor('img/plus.png', 'add', 'add-link')">
-                <img id="add" src="img/plus.png" alt="Neues Thema erstellen">
+                <img id="add" src="img/plus.png" title="Neuest Thema erstellen" alt="Neues Thema erstellen">
         </div>
 
         <?php
