@@ -1,0 +1,51 @@
+.article{
+    color: black;
+    height: auto;
+
+}
+
+.article-entry{
+    margin: 15px 0;
+    border-radius: var(--borderRadius);
+    background-color: white;
+    position: relative;
+    padding: 5px 10%;
+    width: auto;
+}
+
+.headline{
+    font-size: 2.4em;
+}
+
+.information {
+    font-size: 0.8em;
+    color: var(--fontColorTable);
+}
+
+.content-img {
+    max-width: 100%;
+    max-height: 600px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.article-content{
+    padding-top: 15px;
+}
+
+.answer{
+    position: relative;
+    height: 33px;
+    background-color: var(--inputColor);
+    color: var(--seconFontColor);
+    border-style: solid;
+    cursor: pointer;
+}
+
+.answer:hover{
+    cursor: pointer;
+    background-color: var(--succesColor);
+    color: var(--fontColor);
+}
+

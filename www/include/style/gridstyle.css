@@ -1,0 +1,124 @@
+.body-wrapper{
+    width: var(--htmlwidth);
+    margin-left: calc((100% - var(--htmlwidth))/2);
+}
+
+.header{
+    background-color: var(--mainColor);
+    width: 100%;
+    height: 75px;
+}
+
+.logo{
+    height: 75px;
+}
+
+.title, .logo{
+    position: relative;
+    float: left;
+}
+
+.title{
+    font-family: "Comic Sans MS", sans-serif;
+    margin: 5px 0 0 15px;
+    font-size: 3em;
+}
+
+.nav{
+    background-color: var(--secondColor);;
+    width: 100%;
+    height: var(--navheight);
+    border-bottom-left-radius: var(--borderRadius);
+    border-bottom-right-radius: var(--borderRadius);
+    z-index: 1;
+}
+
+.content{
+    width: 100%;
+}
+
+.footer{
+    height: calc(100% - 30px);
+    padding: 15px;
+    font-size: 0.8em;
+    border-top-left-radius: var(--borderRadius);
+    border-top-right-radius: var(--borderRadius);
+    background-color: #1c1c1c;
+}
+
+
+.link, .link-right{
+    padding: 10px 0 0 0;
+    display: block;
+
+    font-size: 1.2em;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+
+    position: relative;
+    float: left;
+
+    height: calc(100% - 10px);;
+
+}
+
+.link{
+    margin-left: 20px;
+}
+
+.link-right{
+    margin-right: 20px;
+    float: right;
+}
+
+.login-container{
+    height: var(--navheight);
+    padding: 10px 0 0 0;
+}
+
+
+#login input{
+    width: 150px;
+    height: 100%;
+    background-color: var(--inputColor);
+}
+
+#add-link:hover{
+    cursor: pointer;
+}
+
+.link-right:not(.active, .checkout):hover, .link:not(.active):hover, .active{
+    color: var(--aczentColor);
+}
+
+#checkout:hover{
+    background-color: var(--warning);
+    color: var(--fontColor);
+    border: none;
+}
+
+#login-button:hover, #signup:hover{
+    background-color: var(--succesColor);
+    color: var(--fontColor);
+    border: none;
+    cursor: pointer;
+}
+
+#checkout, #signup, #login-button{
+    background-color: var(--inputColor);
+    color: var(--seconFontColor);
+    border: none;
+}
+
+.little{
+    font-size: 0.8em;
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    left: calc((100% - var(--htmlwidth))/2);
+    height: var(--navheight);
+    width: var(--htmlwidth);
+}

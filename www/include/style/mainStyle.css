@@ -1,0 +1,19 @@
+/*Start Import other Styles*/
+@import "ini.css";
+@import "gridstyle.css";
+@import "overviewTable.css";
+@import "article.css";
+@import "modal.css";
+@import "form.css";
+@import "snackbar.css";
+/*TODO: Style schöner und überarbeiten*/
+
+
+html,body {
+    margin: 0;
+    padding: 0;
+    color: var(--fontColor);
+    font-family: Arial, sans-serif;
+    background-color: var(--htmlBackground);
+}
+
