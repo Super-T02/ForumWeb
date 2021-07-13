@@ -86,7 +86,7 @@ class Answer implements DbElement
      */
     public static function loadByID(int $id): dbElement
     {
-        return new Answer();// TODO: Implement loadByID() method.
+        return new Answer();
     }
 
     // Getters

@@ -197,6 +197,6 @@ class User implements DbElement
 
     public function __toString()
     {
-        return "";// TODO: Implement __toString() method.
+        return "";
     }
 }
